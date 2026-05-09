@@ -1,0 +1,43 @@
+{
+	"schemaVersion": 1,
+	"id": "simple-sort",
+	"version": "${version}",
+	"name": "Simple Sort",
+	"description": "Quick and easy item distribution made simple. Use the distribution platform to sort items into chests, shulker boxes, and more with ease. No more manual sorting or complex GUIs!",
+	"authors": [
+		"FanaticalFoxx"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/simple-sort",
+		"sources": "https://github.com/nullified-fox/simple-sort",
+		"issues": "https://github.com/nullified-fox/simple-sort/issues"
+	},
+	"license": "ARR",
+	"icon": "assets/simple-sort/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"modmenu": [
+			"me.simplesort.client.ModMenuIntegration"
+		],
+		"main": [
+			"me.simplesort.Simplesort"
+		],
+		"client": [
+			"me.simplesort.client.SimplesortClient"
+		]
+	},
+	"mixins": [],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "0.147.0+26.1.2",
+		"cloth-config": ">=26.1.154"
+	},
+	"custom": {
+		"modmenu": {
+			"icon": "assets/simple-sort/icon.png",
+			"update_checker": false
+		}
+	}
+}
