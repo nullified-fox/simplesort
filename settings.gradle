@@ -9,4 +9,4 @@ pluginManagement {
 	}
 }
 
-rootProject.name = 'simple-sort-fabric'
+rootProject.name = 'simple-sort'
