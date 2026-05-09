@@ -1,7 +1,14 @@
 # gradle
 
 .gradle/
-build/
+build/classes/
+build/resources/
+build/generated/
+build/loom-cache/
+build/reports/
+build/processIncludeJars/
+build/tmp/
+build/libs/simple-sort-fabric-1.0.0-sources.jar
 out/
 classes/
 
