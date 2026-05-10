@@ -55,7 +55,7 @@ public class ContainerUtils {
      */
     @SuppressWarnings("null")
     public static Set<Item> getItemFrameItems(Level level, BlockPos pos) {
-        AABB box = new AABB(pos).inflate(0.5);
+        AABB box = new AABB(pos).inflate(0.5); // Maybe there's a better way? 
         List<GlowItemFrame> frames = level.getEntitiesOfClass(GlowItemFrame.class, box,
                 f -> !f.getItem().isEmpty()
                         && f.blockPosition().relative(f.getDirection().getOpposite()).equals(pos));

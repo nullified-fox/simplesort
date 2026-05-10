@@ -82,11 +82,13 @@ public class ModBlocks {
 
 			BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
 
-			Objects.requireNonNull(Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem), "Failed to register item: " + name);
+            // If for some reason, I don't know how. This will throw an exception and crash the game during startup, which is better than silently failing.
+			Objects.requireNonNull(Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem), "Failed to register item: " + name); 
 		}
 
         Simplesort.LOGGER.info("[Simple Sort] Registered block: {}", name);
 
+        // Same as above, if it do failith, then crashith with a clear error message.
 		return Objects.requireNonNull(Registry.register(BuiltInRegistries.BLOCK, blockKey, block), "Failed to register block: " + name);
 	}
 

@@ -47,16 +47,20 @@ public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<B
 
     public static SortTrailPayload decode(FriendlyByteBuf buffer) {
         BlockPos center = buffer.readBlockPos();
+
+        // Stores those successes! :D
         int successCount = buffer.readVarInt();
         List<BlockPos> successes = new java.util.ArrayList<>();
         for (int i = 0; i < successCount; i++) {
             successes.add(buffer.readBlockPos());
         }
+        // Stores those failures! :(
         int failsCount = buffer.readVarInt();
         List<BlockPos> fails = new java.util.ArrayList<>();
         for (int i = 0; i < failsCount; i++) {
             fails.add(buffer.readBlockPos());
         }
+        // Stores those partial successes! :/
         int partialsCount = buffer.readVarInt();
         List<BlockPos> partials = new java.util.ArrayList<>();
         for (int i = 0; i < partialsCount; i++) {

@@ -11,6 +11,12 @@
     - Share modpack links that reference the official download
  */
 
+/*
+
+    Whole lotta complicated mess imo. I used open-source resources to figure out how to do a lot of this, alongside some general knowledge. If there is a better way, let me know and I'll be happy to optimize it.
+
+*/
+
 package me.simplesort.sorting;
 
 import java.util.ArrayList;

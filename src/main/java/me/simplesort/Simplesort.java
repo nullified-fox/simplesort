@@ -46,7 +46,7 @@ public class Simplesort implements ModInitializer {
 
 		// Server tick event for handling radius viewer particle effects
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
-			if (server.getTickCount() % 20 != 0) return; // every second
+			if (server.getTickCount() % 20 != 0) return;
 			SortingHubBlock.tickRadiusViewers(server);
 		});
 	}
