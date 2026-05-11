@@ -1,6 +1,16 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.guardsquare:proguard-gradle:7.9.1'
+    }
+}
+
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 }
+
 
 version = project.mod_version
 group = project.maven_group
@@ -60,4 +70,22 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_$projectName"}
 	}
+}
+
+task obfuscate(type: proguard.gradle.ProGuardTask) {
+    dependsOn 'build'
+    injars "${buildDir}/libs/${project.name}-${version}.jar"
+    outjars "${buildDir}/libs/${project.name}-${version}-obf.jar"
+
+    libraryjars configurations.runtimeClasspath
+    libraryjars "${System.getProperty('java.home')}/jmods"
+
+    keep 'class me.simplesort.Simplesort { *; }'
+    keep 'class me.simplesort.client.SimplesortClient { *; }'
+    keep 'class me.simplesort.client.ModMenuIntegration { *; }'
+    keep 'class me.simplesort.config.** { *; }'
+
+    keepattributes 'RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations'
+    dontoptimize
+    dontwarn
 }
