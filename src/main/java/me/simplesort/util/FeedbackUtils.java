@@ -69,7 +69,7 @@ public class FeedbackUtils {
         }
 
         if (config.showOverlayMessages) {
-            player.sendSystemMessage(Component.translatable(feedback.translationKey()).withColor(feedback.color()));
+            player.displayClientMessage(Component.translatable(feedback.translationKey()).withColor(feedback.color()), true);
         }
 
         if (result.status() == SortStatus.PARTIAL_SUCCESS && !result.unplacedItems().isEmpty()) {
