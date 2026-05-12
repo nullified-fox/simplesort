@@ -17,60 +17,53 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 
 public class SortingHubData extends SavedData {
 
     // region Serialization
 
-    public static final SavedData.Factory<SortingHubData> FACTORY = new SavedData.Factory<>(
-        SortingHubData::new, 
-        SortingHubData::load, 
-        null
-    );
-
-    private final Map<BlockPos, UUID> lockedBlocks = new HashMap<>();
-
-    @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        ListTag list = new ListTag();
-        for (Map.Entry<BlockPos, UUID> entry : lockedBlocks.entrySet()) {
-            CompoundTag entryTag = new CompoundTag();
-            entryTag.putLongArray("pos", new long[]{entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ()});
-            entryTag.putUUID("uuid", entry.getValue());
-            list.add(entryTag);
-        }
-        tag.put("locked", list);
-        return tag;
+    private record LockedEntry(BlockPos pos, UUID uuid) {
+        static final Codec<LockedEntry> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                BlockPos.CODEC.fieldOf("pos").forGetter(LockedEntry::pos),
+                UUIDUtil.CODEC.fieldOf("uuid").forGetter(LockedEntry::uuid)
+            ).apply(instance, LockedEntry::new));
     }
 
-    public static SortingHubData load(CompoundTag tag, HolderLookup.Provider registries) {
-        SortingHubData data = new SortingHubData();
-        ListTag list = tag.getList("locked", Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++) {
-            CompoundTag entryTag = list.getCompound(i);
-            BlockPos pos = BlockPos.of(entryTag.getLong("pos"));
-            UUID uuid = entryTag.getUUID("uuid");
-            data.lockedBlocks.put(pos, uuid);
-        }
-        return data;
-    }
+    public static final Codec<SortingHubData> CODEC = LockedEntry.CODEC.listOf().xmap(
+        list -> {
+            SortingHubData data = new SortingHubData();
+            list.forEach(entry -> data.lockedBlocks.put(entry.pos(), entry.uuid()));
+            return data;
+        },
+        data -> data.lockedBlocks.entrySet().stream()
+            .map(e -> new LockedEntry(e.getKey(), e.getValue()))
+            .toList());
+
+    public static final SavedDataType<SortingHubData> TYPE = new SavedDataType<>(
+        "sorting_hub",
+        SortingHubData::new,
+        CODEC,
+        null);
 
     // endregion
 
     // region Fields & Accessor
 
+    private final Map<BlockPos, UUID> lockedBlocks = new HashMap<>();
 
     public static SortingHubData get(MinecraftServer server) {
         ServerLevel overworld = server.overworld();
-        return overworld.getDataStorage().computeIfAbsent(FACTORY, "sorting_hub_data");
+        return overworld.getDataStorage().computeIfAbsent(TYPE);
     }
 
     // endregion

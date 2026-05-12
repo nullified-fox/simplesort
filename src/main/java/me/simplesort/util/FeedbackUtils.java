@@ -82,7 +82,7 @@ public class FeedbackUtils {
             }
             player.sendSystemMessage(Component.translatable("simple-sort.text.could_not_transfer")
                     .withColor(0xFFAA00)
-                    .withStyle(s -> s.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText.withColor(0xFFAA00)))));
+                    .withStyle(s -> s.withHoverEvent(new HoverEvent.ShowText(hoverText.withColor(0xFFAA00)))));
         }
     }
 
