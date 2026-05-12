@@ -247,23 +247,23 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
             double span = radius * 2;
 
             // Bottom face (4 edges at minY)
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius + t * span, minY, cz - radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius + t * span, minY, cz + radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius, minY, cz - radius + t * span, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx + radius, minY, cz - radius + t * span, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius + t * span, minY, cz - radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius + t * span, minY, cz + radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius, minY, cz - radius + t * span, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx + radius, minY, cz - radius + t * span, 1, 0,0,0,0);
 
             // Top face (4 edges at maxY)
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius + t * span, maxY, cz - radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius + t * span, maxY, cz + radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius, maxY, cz - radius + t * span, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx + radius, maxY, cz - radius + t * span, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius + t * span, maxY, cz - radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius + t * span, maxY, cz + radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius, maxY, cz - radius + t * span, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx + radius, maxY, cz - radius + t * span, 1, 0,0,0,0);
 
             // 4 vertical corner edges
             double vy = minY + t * span;
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius, vy, cz - radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx + radius, vy, cz - radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx - radius, vy, cz + radius, 1, 0,0,0,0);
-            level.sendParticles(sp, ParticleTypes.END_ROD, true, cx + radius, vy, cz + radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius, vy, cz - radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx + radius, vy, cz - radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx - radius, vy, cz + radius, 1, 0,0,0,0);
+            level.sendParticles(sp, ParticleTypes.END_ROD, false, false, cx + radius, vy, cz + radius, 1, 0,0,0,0);
         }
     }
 
