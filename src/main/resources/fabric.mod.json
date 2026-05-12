@@ -29,7 +29,7 @@
 	"mixins": [],
 	"depends": {
 		"fabricloader": ">=${loader_version}",
-		"minecraft": "~${minimum_minecraft_version}",
+		"minecraft": ">=${minimum_minecraft_version}",
 		"java": ">=${java_version}",
 		"fabric-api": "*",
 		"cloth-config": ">=${cloth_config_version}"
