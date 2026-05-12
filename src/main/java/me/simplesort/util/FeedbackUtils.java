@@ -35,6 +35,7 @@ public class FeedbackUtils {
 
     private record Feedback(SoundEvent sound, float pitch, String translationKey, int color, String logTemplate) {}
 
+    @SuppressWarnings("null")
     private static final Map<SortStatus, Feedback> FEEDBACK_MAP = Map.of(
         SortStatus.SUCCESS,               new Feedback(SoundEvents.BEACON_ACTIVATE,   1.4f, "simple-sort.text.transferred",     0x55FF55, "{} sorted items into {} containers"),
         SortStatus.PARTIAL_SUCCESS,       new Feedback(SoundEvents.BEACON_DEACTIVATE, 1.3f, "simple-sort.text.partial_transfer", 0xFFAA00, "{} sorted some items into {} containers, but not all could be transferred"),
@@ -45,6 +46,7 @@ public class FeedbackUtils {
         SortStatus.LACKING_PERMISSIONS,   new Feedback(null, 0f, "simple-sort.text.no_permission",    0xFF5555, "{} - You don't have permission to use this sorting hub")
     );
 
+    @SuppressWarnings("null")
     public static void onSortResult(ServerPlayer player, SortResult result) {
         Feedback feedback = FEEDBACK_MAP.get(result.status());
         if (feedback == null) throw new IllegalArgumentException("Unexpected SortStatus: " + result.status());

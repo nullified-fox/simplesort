@@ -57,6 +57,7 @@ public class SortUtils {
      * @param centralPos - the central position to search around for nearby containers to sort into
      * @return
      */
+    @SuppressWarnings("null")
     public static SortResult sortToNearbyContainers(Player player, BlockPos centralPos) {
         if (player.level().isClientSide())
             return new SortResult(SortStatus.NO_CONTAINERS, Set.of(), Set.of(), Set.of(), Map.of());
@@ -238,6 +239,7 @@ public class SortUtils {
      * @param pos - the position of the target container to sort into
      * @return
      */
+    @SuppressWarnings("null")
     public static boolean transferItems(Player player, BlockPos pos) {
         Storage<ItemVariant> targetStorage = ContainerUtils.getStorage(player.level(), pos);
         if (targetStorage == null)

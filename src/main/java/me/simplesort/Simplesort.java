@@ -32,6 +32,7 @@ public class Simplesort implements ModInitializer {
 
 	public static final int SORT_RADIUS = 10; // Default radius for sorting, in blocks
 
+	@SuppressWarnings("null")
 	@Override
 	public void onInitialize() {
 		// Register the mod config

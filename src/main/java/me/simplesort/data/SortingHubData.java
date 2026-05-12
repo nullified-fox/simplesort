@@ -49,6 +49,7 @@ public class SortingHubData extends SavedData {
             .map(e -> new LockedEntry(e.getKey(), e.getValue()))
             .toList());
 
+    @SuppressWarnings("null")
     public static final SavedDataType<SortingHubData> TYPE = new SavedDataType<>(
         "sorting_hub",
         SortingHubData::new,
@@ -61,6 +62,7 @@ public class SortingHubData extends SavedData {
 
     private final Map<BlockPos, UUID> lockedBlocks = new HashMap<>();
 
+    @SuppressWarnings("null")
     public static SortingHubData get(MinecraftServer server) {
         ServerLevel overworld = server.overworld();
         return overworld.getDataStorage().computeIfAbsent(TYPE);

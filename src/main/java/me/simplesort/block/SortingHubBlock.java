@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.jspecify.annotations.NonNull;
+
 import com.mojang.serialization.MapCodec;
 
 import me.simplesort.Simplesort;
@@ -70,6 +72,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
 
     // region Block Identity
 
+    @SuppressWarnings("null")
     @Override
     public MapCodec<SortingHubBlock> codec() {
         return CODEC;
@@ -84,6 +87,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param context The context of the block placement, containing information about the player and the world.
      * @return The BlockState with the FACING property set to the opposite of the player's horizontal direction.
      */
+    @SuppressWarnings("null")
     @Override
     public BlockState getStateForPlacement(final BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
@@ -96,6 +100,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param pos The position of the block
      * @param random Random source
      */
+    @SuppressWarnings("null")
     @Override
     public void animateTick(final BlockState state, final Level level, final BlockPos pos, final RandomSource random) {
         final double x = pos.getX() + 0.2 + (random.nextDouble() * 0.6);
@@ -113,6 +118,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param state The current state of the block
      * @param entity The entity that stepped on the block
      */
+    @SuppressWarnings("null")
     @Override
     public void stepOn(final Level level, final BlockPos pos, final BlockState state, final Entity entity) {
         if (level.isClientSide()) return;
@@ -161,8 +167,9 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param hit The result of the block hit
      * @return The result of the interaction, indicating whether it was successful or not
      */
+    @SuppressWarnings("null")
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+    protected @NonNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!(player instanceof ServerPlayer sp)) return InteractionResult.SUCCESS;
 
@@ -197,6 +204,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
     /**
      * Called on block removal; cleans up any radius viewers that were viewing this block.
      */
+    @SuppressWarnings("null")
     @Override
     public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
         radiusViewers.values().removeIf(storedPos -> storedPos.equals(pos));
@@ -209,6 +217,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param world The block reader for the world
      * @param pos The position where the block is being placed
      */
+    @SuppressWarnings("null")
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         return !(world.getBlockState(pos.below()).getBlock() instanceof SortingHubBlock);
     }
@@ -221,6 +230,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * Adds the FACING property to the block's state definition, allowing the block to have different states based on its orientation.
      * @param builder The StateDefinition.Builder used to define the block's state properties.
      */
+    @SuppressWarnings("null")
     @Override
     protected void createBlockStateDefinition(final StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
@@ -236,6 +246,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param pos
      * @param sp
      */
+    @SuppressWarnings("null")
     private static void showRadiusParticles(ServerLevel level, BlockPos pos, ServerPlayer sp) {
         int radius = Simplesort.SORT_RADIUS;
         double cx = pos.getX() + 0.5, cy = pos.getY() + 0.5, cz = pos.getZ() + 0.5;
@@ -271,6 +282,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * Ticks the radius viewers, sending particle updates to any players currently viewing the sorting radius.
      * @param server
      */
+    @SuppressWarnings("null")
     public static void tickRadiusViewers(MinecraftServer server) {
         radiusViewers.entrySet().removeIf(entry -> {
             ServerPlayer sp = server.getPlayerList().getPlayer(entry.getKey());
@@ -292,6 +304,7 @@ public class SortingHubBlock extends HorizontalDirectionalBlock {
      * @param context The collision context for the block
      * @return The VoxelShape representing the shape of the block
      */
+    @SuppressWarnings("null")
     @Override
     protected VoxelShape getShape(final BlockState state, final BlockGetter world, final BlockPos pos, final CollisionContext context) {
         return SHAPE;

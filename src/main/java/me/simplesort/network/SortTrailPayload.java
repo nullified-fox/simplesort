@@ -20,14 +20,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<BlockPos> fails, List<BlockPos> partials) implements CustomPacketPayload {
     
-    public static final CustomPacketPayload.Type<SortTrailPayload> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Simplesort.MOD_ID, "sort_trail"));
+    public static final CustomPacketPayload.Type<SortTrailPayload> TYPE = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Simplesort.MOD_ID, "sort_trail"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SortTrailPayload> S_CODEC = StreamCodec.of(SortTrailPayload::encode, SortTrailPayload::decode);
 
+    @SuppressWarnings("null")
     public static void encode(RegistryFriendlyByteBuf buffer, SortTrailPayload payload) {
         buffer.writeBlockPos(payload.center());
         buffer.writeVarInt(payload.successes().size());
@@ -68,6 +69,7 @@ public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<B
         return new SortTrailPayload(center, successes, fails, partials);
     }
 
+    @SuppressWarnings("null")
     public CustomPacketPayload.Type<SortTrailPayload> type() {
         return TYPE;
     }

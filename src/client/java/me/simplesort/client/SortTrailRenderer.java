@@ -68,6 +68,7 @@ public class SortTrailRenderer {
         });
     }
 
+    @SuppressWarnings("null")
     private static void flash(Level level, BlockPos pos, ParticleOptions particle) {
 
         double x0 = pos.getX(), y0 = pos.getY(), z0 = pos.getZ();
