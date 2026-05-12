@@ -38,18 +38,31 @@ dependencies {
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-	implementation "me.shedaniel.cloth:cloth-config-fabric:26.1.154"
+	implementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
 	implementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
 
 }
 
 processResources {
-	def version = project.version
-	inputs.property "version", version
+    def version = project.version
+    def loader_version = project.loader_version
+    def minimum_minecraft_version = project.minecraft_version
+    def java_version = project.java_version
+    def cloth_config_version = project.cloth_config_version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": version
-	}
+    inputs.property "version", version
+    inputs.property "loader_version", loader_version
+    inputs.property "minimum_minecraft_version", minimum_minecraft_version
+    inputs.property "java_version", java_version
+    inputs.property "cloth_config_version", cloth_config_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": version,
+               "loader_version": loader_version,
+               "minimum_minecraft_version": minimum_minecraft_version,
+               "java_version": java_version,
+               "cloth_config_version": cloth_config_version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -75,7 +88,7 @@ jar {
 task obfuscate(type: proguard.gradle.ProGuardTask) {
     dependsOn 'build'
     injars "${buildDir}/libs/${project.name}-${version}.jar"
-    outjars "${buildDir}/libs/${project.name}-${version}-obf.jar"
+    outjars "${buildDir}/libs/obf/${project.name}-${version}.jar"
 
     libraryjars configurations.runtimeClasspath
     libraryjars "${System.getProperty('java.home')}/jmods"
