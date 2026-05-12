@@ -69,7 +69,7 @@ public class ModBlocks {
 	private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem) {
 		ResourceKey<Block> blockKey = keyOfBlock(name);
 
-		Block block = blockFactory.apply(settings);
+		Block block = blockFactory.apply(settings.setId(blockKey));
 
 		if (shouldRegisterItem) {
 			ResourceKey<Item> itemKey = keyOfItem(name);
@@ -78,7 +78,7 @@ public class ModBlocks {
 
             // 
             
-			BlockItem blockItem = new BlockItem(block, new Item.Properties());
+			BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey));
 
             // If for some reason, I don't know how. This will throw an exception and crash the game during startup, which is better than silently failing.
 			Objects.requireNonNull(Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem), "Failed to register item: " + name); 

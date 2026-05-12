@@ -28,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import org.joml.Vector3f;
 
 public class SortTrailRenderer {
 
@@ -36,11 +35,9 @@ public class SortTrailRenderer {
 
     private static final List<PendingFlash> activeFlashes = new ArrayList<>();
 
-
-
-    private static final ParticleOptions PARTICLE_SUCCESS = new DustParticleOptions(new Vector3f(0f, 1f, 0f), 1.0f); // Green color for successful sorts
-    private static final ParticleOptions PARTICLE_FAILURE = new DustParticleOptions(new Vector3f(1f, 0.2f, 0.2f), 1.0f); // Red color for failed sorts
-    private static final ParticleOptions PARTICLE_PARTIAL = new DustParticleOptions(new Vector3f(1f, 0.53f, 0f), 1.0f); // Orange color for partial sorts
+    private static final ParticleOptions PARTICLE_SUCCESS = new DustParticleOptions(0x00FF00, 1.0f); // Green color for successful sorts
+    private static final ParticleOptions PARTICLE_FAILURE = new DustParticleOptions(0xFF3333, 1.0f); // Red color for failed sorts
+    private static final ParticleOptions PARTICLE_PARTIAL = new DustParticleOptions(0xFF8700, 1.0f); // Orange color for partial sorts
 
     private static final int EDGE_STEPS = 5;       // Number of particles to spawn along each edge of the block
     private static final int FLASH_DURATION = 60;  // Total ticks to keep the outline visible (~3 seconds)
