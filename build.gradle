@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'net.fabricmc.fabric-loom-remap' version "1.16-SNAPSHOT"
 }
 
 
@@ -24,7 +24,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"simple-distribution" {
+		"simple-sort" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
@@ -34,33 +34,47 @@ loom {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
 	
-	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
-	implementation "me.shedaniel.cloth:cloth-config-fabric:26.1.154"
-	implementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}")
+	modImplementation("com.terraformersmc:modmenu:${project.mod_menu_version}")
 
 }
 
 processResources {
-	def version = project.version
-	inputs.property "version", version
+    def version = project.version
+    def loader_version = project.loader_version
+    def minimum_minecraft_version = project.minecraft_version
+    def java_version = project.java_version
+    def cloth_config_version = project.cloth_config_version
 
-	filesMatching("fabric.mod.json") {
-		expand "version": version
-	}
+    inputs.property "version", version
+    inputs.property "loader_version", loader_version
+    inputs.property "minimum_minecraft_version", minimum_minecraft_version
+    inputs.property "java_version", java_version
+    inputs.property "cloth_config_version", cloth_config_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": version,
+               "loader_version": loader_version,
+               "minimum_minecraft_version": minimum_minecraft_version,
+               "java_version": java_version,
+               "cloth_config_version": cloth_config_version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 25
+	it.options.release = 21
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -75,7 +89,7 @@ jar {
 task obfuscate(type: proguard.gradle.ProGuardTask) {
     dependsOn 'build'
     injars "${buildDir}/libs/${project.name}-${version}.jar"
-    outjars "${buildDir}/libs/${project.name}-${version}-obf.jar"
+    outjars "${buildDir}/libs/obf/${project.name}-${version}.jar"
 
     libraryjars configurations.runtimeClasspath
     libraryjars "${System.getProperty('java.home')}/jmods"

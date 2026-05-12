@@ -17,8 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jspecify.annotations.NonNull;
-
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -43,7 +41,7 @@ public class ContainerUtils {
      * @param pos - The position of the block to get the storage from.
      * @return
      */
-    public static Storage<ItemVariant> getStorage(@NonNull Level level, @NonNull BlockPos pos) {
+    public static Storage<ItemVariant> getStorage(Level level, BlockPos pos) {
         return ItemStorage.SIDED.find(level, pos, null);
     }
 
@@ -53,7 +51,6 @@ public class ContainerUtils {
      * @param pos - The position of the block to get the item frames from.
      * @return
      */
-    @SuppressWarnings("null")
     public static Set<Item> getItemFrameItems(Level level, BlockPos pos) {
         AABB box = new AABB(pos).inflate(0.5); // Maybe there's a better way? 
         List<GlowItemFrame> frames = level.getEntitiesOfClass(GlowItemFrame.class, box,
@@ -75,7 +72,7 @@ public class ContainerUtils {
      * @param pos - The position of the block to check access for.
      * @return
      */
-    public static boolean canPlayerAccess(@NonNull Player player, @NonNull Level level, @NonNull BlockPos pos) {
+    public static boolean canPlayerAccess(Player player, Level level, BlockPos pos) {
         BlockHitResult fakeHit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
         return UseBlockCallback.EVENT.invoker().interact(player, level, InteractionHand.MAIN_HAND, fakeHit) != InteractionResult.FAIL;
     }

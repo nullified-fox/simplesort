@@ -18,7 +18,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 public class SimplesortClient implements ClientModInitializer {
-	@SuppressWarnings("null")
 	@Override
 	public void onInitializeClient() {
 

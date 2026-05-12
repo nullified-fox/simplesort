@@ -32,7 +32,6 @@ public class Simplesort implements ModInitializer {
 
 	public static final int SORT_RADIUS = 10; // Default radius for sorting, in blocks
 
-	@SuppressWarnings("null")
 	@Override
 	public void onInitialize() {
 		// Register the mod config
@@ -42,7 +41,7 @@ public class Simplesort implements ModInitializer {
 		ModBlocks.initialize();
 
 		// Register the custom payload for sort trails
-		PayloadTypeRegistry.clientboundPlay().register(SortTrailPayload.TYPE, SortTrailPayload.S_CODEC);
+		PayloadTypeRegistry.playS2C().register(SortTrailPayload.TYPE, SortTrailPayload.S_CODEC);
 
 		// Server tick event for handling radius viewer particle effects
 		ServerTickEvents.END_SERVER_TICK.register(server -> {

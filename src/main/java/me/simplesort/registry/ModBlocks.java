@@ -16,15 +16,13 @@ package me.simplesort.registry;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.jspecify.annotations.NonNull;
-
 import me.simplesort.Simplesort;
 import me.simplesort.block.SortingHubBlock;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -56,9 +54,8 @@ public class ModBlocks {
     public static void initialize() {
         Simplesort.LOGGER.info("[Simple Sort] Successfully registered blocks");
 
-        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register((creativeTab) -> {
-            creativeTab.accept(ModBlocks.sort_hub.asItem());
-        });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS)
+            .register((creativeTab) -> creativeTab.accept(ModBlocks.sort_hub.asItem()));
     }
 
     /**
@@ -69,18 +66,19 @@ public class ModBlocks {
      * @param shouldRegisterItem
      * @return
      */
-	@SuppressWarnings("null")
 	private static Block register(String name, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings, boolean shouldRegisterItem) {
 		ResourceKey<Block> blockKey = keyOfBlock(name);
 
-		Block block = blockFactory.apply(settings.setId(blockKey));
+		Block block = blockFactory.apply(settings);
 
 		if (shouldRegisterItem) {
 			ResourceKey<Item> itemKey = keyOfItem(name);
 
             Simplesort.LOGGER.info("[Simple Sort] Registered item: {}", itemKey.toString());
 
-			BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
+            // 
+            
+			BlockItem blockItem = new BlockItem(block, new Item.Properties());
 
             // If for some reason, I don't know how. This will throw an exception and crash the game during startup, which is better than silently failing.
 			Objects.requireNonNull(Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem), "Failed to register item: " + name); 
@@ -97,8 +95,8 @@ public class ModBlocks {
      * @param name
      * @return
      */
-    private static ResourceKey<Block> keyOfBlock(@NonNull String name) {
-		return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplesort.MOD_ID, name));
+    private static ResourceKey<Block> keyOfBlock(String name) {
+		return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Simplesort.MOD_ID, name));
 	}
 
     /**
@@ -106,8 +104,8 @@ public class ModBlocks {
      * @param name
      * @return
      */
-	private static ResourceKey<Item> keyOfItem(@NonNull String name) {
-		return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplesort.MOD_ID, name));
+	private static ResourceKey<Item> keyOfItem(String name) {
+		return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Simplesort.MOD_ID, name));
 	}
 
     //endregion 

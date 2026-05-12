@@ -17,19 +17,18 @@ import java.util.List;
 
 import me.simplesort.Simplesort;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<BlockPos> fails, List<BlockPos> partials) implements CustomPacketPayload {
     
-    public static final CustomPacketPayload.Type<SortTrailPayload> TYPE = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Simplesort.MOD_ID, "sort_trail"));
+    public static final CustomPacketPayload.Type<SortTrailPayload> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Simplesort.MOD_ID, "sort_trail"));
 
-    public static final StreamCodec<FriendlyByteBuf, SortTrailPayload> S_CODEC = StreamCodec.of(SortTrailPayload::encode, SortTrailPayload::decode);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SortTrailPayload> S_CODEC = StreamCodec.of(SortTrailPayload::encode, SortTrailPayload::decode);
 
-    @SuppressWarnings("null")
-    public static void encode(FriendlyByteBuf buffer, SortTrailPayload payload) {
+    public static void encode(RegistryFriendlyByteBuf buffer, SortTrailPayload payload) {
         buffer.writeBlockPos(payload.center());
         buffer.writeVarInt(payload.successes().size());
         for (BlockPos pos : payload.successes()) {
@@ -45,7 +44,7 @@ public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<B
         }
     }
 
-    public static SortTrailPayload decode(FriendlyByteBuf buffer) {
+    public static SortTrailPayload decode(RegistryFriendlyByteBuf buffer) {
         BlockPos center = buffer.readBlockPos();
 
         // Stores those successes! :D
@@ -69,7 +68,6 @@ public record SortTrailPayload(BlockPos center, List<BlockPos> successes, List<B
         return new SortTrailPayload(center, successes, fails, partials);
     }
 
-    @SuppressWarnings("null")
     public CustomPacketPayload.Type<SortTrailPayload> type() {
         return TYPE;
     }

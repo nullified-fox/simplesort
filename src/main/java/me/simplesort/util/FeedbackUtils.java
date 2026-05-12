@@ -15,7 +15,6 @@ package me.simplesort.util;
 
 import java.util.Map;
 
-import org.jspecify.annotations.Nullable;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.simplesort.Simplesort;
 import me.simplesort.config.ModConfig;
@@ -34,9 +33,8 @@ import net.minecraft.sounds.SoundSource;
 
 public class FeedbackUtils {
 
-    private record Feedback(@Nullable SoundEvent sound, float pitch, String translationKey, int color, String logTemplate) {}
+    private record Feedback(SoundEvent sound, float pitch, String translationKey, int color, String logTemplate) {}
 
-    @SuppressWarnings("null")
     private static final Map<SortStatus, Feedback> FEEDBACK_MAP = Map.of(
         SortStatus.SUCCESS,               new Feedback(SoundEvents.BEACON_ACTIVATE,   1.4f, "simple-sort.text.transferred",     0x55FF55, "{} sorted items into {} containers"),
         SortStatus.PARTIAL_SUCCESS,       new Feedback(SoundEvents.BEACON_DEACTIVATE, 1.3f, "simple-sort.text.partial_transfer", 0xFFAA00, "{} sorted some items into {} containers, but not all could be transferred"),
@@ -47,7 +45,6 @@ public class FeedbackUtils {
         SortStatus.LACKING_PERMISSIONS,   new Feedback(null, 0f, "simple-sort.text.no_permission",    0xFF5555, "{} - You don't have permission to use this sorting hub")
     );
 
-    @SuppressWarnings("null")
     public static void onSortResult(ServerPlayer player, SortResult result) {
         Feedback feedback = FEEDBACK_MAP.get(result.status());
         if (feedback == null) throw new IllegalArgumentException("Unexpected SortStatus: " + result.status());
@@ -72,7 +69,7 @@ public class FeedbackUtils {
         }
 
         if (config.showOverlayMessages) {
-            player.sendOverlayMessage(Component.translatable(feedback.translationKey()).withColor(feedback.color()));
+            player.sendSystemMessage(Component.translatable(feedback.translationKey()).withColor(feedback.color()));
         }
 
         if (result.status() == SortStatus.PARTIAL_SUCCESS && !result.unplacedItems().isEmpty()) {
@@ -85,7 +82,7 @@ public class FeedbackUtils {
             }
             player.sendSystemMessage(Component.translatable("simple-sort.text.could_not_transfer")
                     .withColor(0xFFAA00)
-                    .withStyle(s -> s.withHoverEvent(new HoverEvent.ShowText(hoverText.withColor(0xFFAA00)))));
+                    .withStyle(s -> s.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText.withColor(0xFFAA00)))));
         }
     }
 
