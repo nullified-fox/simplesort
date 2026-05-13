@@ -46,6 +46,4 @@ replay_*.log
 *.hprof
 *.jfr
 .editorconfig
-/src/main/resources/assets
-/src/main/resources/data
 /build

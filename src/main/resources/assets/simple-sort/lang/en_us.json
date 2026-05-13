@@ -1,0 +1,21 @@
+{
+    "block.simple-sort.sorting_hub": "Sort Platform",
+    "simple-sort.text.transferred": "Items sorted",
+    "simple-sort.text.partial_transfer": "Items partially sorted",
+    "simple-sort.text.no_items": "Nothing to sort",
+    "simple-sort.text.not_enough_space": "Containers are full",
+    "simple-sort.text.no_containers": "No containers nearby",
+    "simple-sort.text.could_not_transfer": "Some items could not be sorted (hover for details)",
+    "simple-sort.text.radius_enabled": "Sorting radius enabled",
+    "simple-sort.text.radius_disabled": "Sorting radius disabled",
+    "simple-sort.text.hub_locked": "This sorting hub is currently locked by another player",
+    "simple-sort.text.hub_lock_enabled": "Sorting hub locked",
+    "simple-sort.text.hub_lock_disabled": "Sorting hub unlocked",
+    "simple-sort.text.no_permission": "You don't have permission to use this sorting hub",
+    "text.autoconfig.simple-sort.title": "Simple Sort Configuration",
+    "text.autoconfig.simple-sort.option.useItemFrameLabels": "Use Item Frame Labels as Sorting Filters",
+    "text.autoconfig.simple-sort.option.sortHotbar": "Sort Hotbar",
+    "text.autoconfig.simple-sort.option.sortOffhand": "Sort Offhand",
+    "text.autoconfig.simple-sort.option.playSounds": "Play Sorting Sounds",
+    "text.autoconfig.simple-sort.option.showOverlayMessages": "Show Overlay Messages"
+}
