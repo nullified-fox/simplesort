@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "simple-sort:block/sorting_hub" },
+    "facing=east": { "model": "simple-sort:block/sorting_hub", "y": 90 },
+    "facing=south": { "model": "simple-sort:block/sorting_hub", "y": 180 },
+    "facing=west": { "model": "simple-sort:block/sorting_hub", "y": 270 }
+  }
+}
