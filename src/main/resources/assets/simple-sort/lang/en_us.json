@@ -1,5 +1,5 @@
 {
-    "block.simple-sort.sorting_hub": "Sort Platform",
+    "item.simple-sort.sorting_hub": "Sort Platform",
     "simple-sort.text.transferred": "Items sorted",
     "simple-sort.text.partial_transfer": "Items partially sorted",
     "simple-sort.text.no_items": "Nothing to sort",
