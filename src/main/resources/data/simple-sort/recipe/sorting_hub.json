@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " E ",
+        "CPC",
+        "SSS"
+    ],
+    "key": {
+        "E": "minecraft:ender_pearl",
+        "C": "minecraft:chest",
+        "P": "minecraft:heavy_weighted_pressure_plate",
+        "S": "minecraft:stone_slab"
+    },
+    "result": {
+        "id": "simple-sort:sorting_hub",
+        "count": 1
+    }
+}
