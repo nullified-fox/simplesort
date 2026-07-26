@@ -50,7 +50,3 @@ Default radius is 10x10x10 blocks. 
 If you come across any issues, report them in issues!
 
 ![](https://media.forgecdn.net/attachments/description/1537808/description_885732b1-5a98-4d68-9416-0f0428224386.png)
-
-## ** To build**
-./gradlew build
-To obf (using ProGuardTask): ./gradlew obfuscate
